@@ -1,0 +1,61 @@
+#!/bin/sh
+ 
+### BEGIN INIT INFO
+# Provides:     ulogd
+# Required-Start:   $syslog
+# Required-Stop:    $syslog
+# Should-Start:     $local_fs
+# Should-Stop:      $local_fs
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    Starts ulogd daemon
+# Description:      ulogd provides userspace log targets for iptables
+### END INIT INFO
+ 
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/local/sbin/ulogd
+CONFIG=/etc/ulogd.conf
+NAME=ulogd
+DESC="ULOG logging daemon"
+PIDFILE=/var/run/$NAME.pid
+OPTS="-c $CONFIG"
+ 
+ 
+case "$1" in
+    start)
+        echo -n "Starting $DESC: "
+ 
+         
+        if [ "`pidof $NAME`" = "" ]
+        then
+            start-stop-daemon --start --background --make-pidfile --pidfile $PIDFILE --quiet --exec $DAEMON -- $OPTS
+            echo "$NAME."
+        else
+            echo ""
+            echo "A copy of the daemon is still running.  If you just stopped it,"
+            echo "please wait about 5 seconds for it to shut down."
+            exit 0
+        fi
+        ;;
+ 
+    stop)
+        echo -n "Stopping $DESC: "
+        start-stop-daemon --stop --oknodo --pidfile $PIDFILE || echo "Not Running."
+        rm -f $PIDFILE
+        echo "$NAME."
+        ;;
+ 
+    restart|force-reload)
+        $0 stop
+        sleep 10
+        $0 start
+        ;;
+ 
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload}" &>2
+        exit 1
+        ;;
+esac
+ 
+exit 0
