@@ -49,4 +49,16 @@ sysctl --system
 kubeadm config images pull
 
 HOST_IPv4=$(ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=$HOST_IPv4
+kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4
+
+mkdir -p $HOME/.kube/
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+kubectl taint nodes --all node-role.kubernetes.io/master-
+sleep 3m # Waits 3 minutes.
+kubectl cluster-info
+kubectl get nodes -o wide
+
+## Install Calico CNI
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl get pods --all-namespaces
