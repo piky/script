@@ -25,4 +25,4 @@ systemctl is-enabled firewalld
 systemctl is-active firewalld
 
 ### List services are allowed in the current zone
-firewall-cmd --list-services
+firewall-cmd --list-all
