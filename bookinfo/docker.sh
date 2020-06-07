@@ -7,7 +7,7 @@
 ## Set up the repository
 ### Install required packages
 yum -y update
-yum install -y yum-utils device-mapper-persistent-data lvm2 net-tools iproute-tc vim
+yum install -y yum-utils device-mapper-persistent-data lvm2 iproute-tc vim
 
 # Add the Docker repository
 yum-config-manager --add-repo \
@@ -40,7 +40,7 @@ systemctl enable --now docker
 systemctl is-enabled docker
 systemctl is-active docker
 
-## Disabling system firewalld, to allow DNS resolution inside Docker containers,
+## Disabling system firewalld to allow DNS resolution inside Docker containers,
 #systemctl disable firewalld
 
 ## It's wisely and security to add an user to Docker group.
