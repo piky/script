@@ -21,3 +21,5 @@ firewall-cmd --permanent --add-port=30000-32767/tcp
 firewall-cmd --add-masquerade --permanent
 
 systemctl restart firewalld
+systemctl is-enabled firewalld
+systemctl is-active firewalld
