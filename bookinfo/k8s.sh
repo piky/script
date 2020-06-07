@@ -6,6 +6,7 @@
 ## Disable swap
 swapoff -a
 sed -i 's/^\(.*swap.*\)$/#\1/' /etc/fstab
+echo "Swap is off"
 
 ## Prepare system environment
 ### Load netfilter probe specifically
@@ -29,8 +30,8 @@ EOF
 
 yum -y install kubectl kubelet kubeadm --disableexcludes=kubernetes
 systemctl enable --now kubelet
-systemctl is-enabled kubelet
-systemctl  is-active kubelet
+echo "kubelet is now $(systemctl is-enabled kubelet)."
+echo "kubelet is now $(systemctl is-active kubelet)."
 
 ## Noticed that kubelet is now expectedly restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
@@ -54,10 +55,12 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 sleep 1m # Waits a minute.
+echo "Waits for a minute"
 kubectl cluster-info
 kubectl get nodes -o wide
 
 ## Install Calico CNI
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+echo "Waits for 3 minutes"
 sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces

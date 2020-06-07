@@ -37,8 +37,8 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 systemctl enable --now docker
-systemctl is-enabled docker
-systemctl is-active docker
+echo "kubelet is now $(systemctl is-enabled docker)."
+echo "kubelet is now $(systemctl is-active docker)."
 
 ## Disabling system firewalld to allow DNS resolution inside Docker containers,
 #systemctl disable firewalld

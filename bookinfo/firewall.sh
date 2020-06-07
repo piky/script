@@ -21,8 +21,9 @@ firewall-cmd --permanent --add-port=30000-32767/tcp
 firewall-cmd --add-masquerade --permanent
 
 systemctl restart firewalld
-systemctl is-enabled firewalld
-systemctl is-active firewalld
+
+echo "kubelet is now $(systemctl is-enabled firewalld)."
+echo "kubelet is now $(systemctl is-active firewalld)."
 
 ### List services are allowed in the current zone
 firewall-cmd --list-all
