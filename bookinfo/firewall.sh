@@ -23,3 +23,6 @@ firewall-cmd --add-masquerade --permanent
 systemctl restart firewalld
 systemctl is-enabled firewalld
 systemctl is-active firewalld
+
+### List services are allowed in the current zone
+firewall-cmd --list-services
