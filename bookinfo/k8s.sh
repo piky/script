@@ -29,12 +29,10 @@ EOF
 
 yum -y install kubectl kubelet kubeadm --disableexcludes=kubernetes
 systemctl enable --now kubelet
-systemctl enabled kubelet
+systemctl is-enabled kubelet
 systemctl  is-active kubelet
 
-## The kubelet is now expectedly restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
-
-Configure cgroup driver used by kubelet on control-plane nod
+## Noticed that kubelet is now expectedly restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
 ## Enable IP Forwarding
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
