@@ -42,3 +42,17 @@ systemctl is-active docker
 
 ## Disabling system firewalld, to allow DNS resolution inside Docker containers,
 #systemctl disable firewalld
+
+## It's wisely and security to add an user to Docker group.
+# usermod -aG docker <username>
+
+## [Caveat] if set 'systemd' as above to avoid warning message,  hairpinning mode will fail.
+## And that causes Istio installation : Pod Readiness probe failed with HTTP 503 error.
+## So set hairpin mode with root privilege.
+#for intf in /sys/devices/virtual/net/docker0/brif/*; do echo 1 > $intf/hairpin_mode; done
+
+## Or set it in CNI manifest YAML file:
+# "type": "cni_name",
+# "delegate": {
+#        "hairpinMode": true,
+#       }
