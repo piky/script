@@ -53,10 +53,11 @@ mkdir -p $HOME/.kube/
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
-sleep 3m # Waits 3 minutes.
+sleep 1m # Waits a minute.
 kubectl cluster-info
 kubectl get nodes -o wide
 
 ## Install Calico CNI
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces
