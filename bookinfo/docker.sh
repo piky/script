@@ -7,7 +7,7 @@
 ## Set up the repository
 ### Install required packages
 yum -y update
-yum install -y yum-utils device-mapper-persistent-data lvm2 net-tools iproute-tc
+yum install -y yum-utils device-mapper-persistent-data lvm2 net-tools iproute-tc vim
 
 # Add the Docker repository
 yum-config-manager --add-repo \
