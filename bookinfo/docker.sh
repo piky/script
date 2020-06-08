@@ -6,8 +6,8 @@
 
 ## Enable NIC in promicious mode to pass all traffic to kernel
 
-ip link set  enp3s4f0 promisc on
-ip a show enp3s4f0 | grep -i promisc
+#ip link set  enp3s4f0 promisc on
+#ip a show enp3s4f0 | grep -i promisc
 
 ## Set up the repository
 ### Install required packages
@@ -48,6 +48,7 @@ echo "docker is now $(systemctl is-active docker)."
 ## Disabling system firewalld to allow DNS resolution inside Docker containers.
 systemctl stop firewalld
 echo "firewalld is now $(systemctl is-active firewalld)."
+iptables -P FORWARD ACCEPT
 
 ## It's wisely and security to add an user to Docker group.
 # usermod -aG docker <username>
