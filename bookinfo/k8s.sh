@@ -47,7 +47,7 @@ sysctl --system
 ## Testing connectivity by pulling required images beforehand.
 kubeadm config images pull
 
-HOST_IPv4=$(ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+HOST_IPv4=$(ip -4 addr show enp3s4f0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4 --control-plane-endpoint=$(hostname --fqdn)
 
 mkdir -p $HOME/.kube/
