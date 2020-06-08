@@ -45,7 +45,7 @@ systemctl enable --now docker
 echo "kubelet is now $(systemctl is-enabled docker)."
 echo "kubelet is now $(systemctl is-active docker)."
 
-## Disabling system firewalld to allow DNS resolution inside Docker containers,
+## Disabling system firewalld to allow DNS resolution inside Docker containers.
 systemctl stop firewalld
 echo "kubelet is now $(systemctl is-active firewalld)."
 
