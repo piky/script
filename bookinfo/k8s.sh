@@ -59,6 +59,8 @@ echo "Waits for a minute"
 kubectl cluster-info
 kubectl get nodes -o wide
 
+iptables -P FORWARD ACCEPT
+
 ## Install Calico CNI
 #kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
