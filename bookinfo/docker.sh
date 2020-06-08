@@ -42,12 +42,12 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 systemctl enable --now docker
-echo "kubelet is now $(systemctl is-enabled docker)."
-echo "kubelet is now $(systemctl is-active docker)."
+echo "docker is now $(systemctl is-enabled docker)."
+echo "docker is now $(systemctl is-active docker)."
 
 ## Disabling system firewalld to allow DNS resolution inside Docker containers.
 systemctl stop firewalld
-echo "kubelet is now $(systemctl is-active firewalld)."
+echo "firewalld is now $(systemctl is-active firewalld)."
 
 ## It's wisely and security to add an user to Docker group.
 # usermod -aG docker <username>
