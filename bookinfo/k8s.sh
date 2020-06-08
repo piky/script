@@ -48,7 +48,7 @@ sysctl --system
 kubeadm config images pull
 
 HOST_IPv4=$(ip -4 addr show enp3s4f0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4 --control-plane-endpoint=$(hostname --fqdn)
+kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4 # --control-plane-endpoint=$(hostname --fqdn)
 
 mkdir -p $HOME/.kube/
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -60,7 +60,8 @@ kubectl cluster-info
 kubectl get nodes -o wide
 
 ## Install Calico CNI
-kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+#kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 echo "Waits for 3 minutes"
 sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces
