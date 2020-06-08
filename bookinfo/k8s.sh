@@ -60,8 +60,8 @@ kubectl cluster-info
 kubectl get nodes -o wide
 
 ## Install Calico CNI
-#kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+#kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 echo "Waits for 3 minutes"
 sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces
