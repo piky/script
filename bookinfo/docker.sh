@@ -4,6 +4,11 @@
 ## Reference source 1: https://kubernetes.io/docs/setup/production-environment/container-runtimes/
 ## Reference source 2: https://linuxconfig.org/how-to-install-docker-in-rhel-8
 
+## Enable promicious to pass all traffic to kernel
+
+ip link set  enp3s4f0 promisc on
+ip a show enp3s4f0 | grep -i promisc
+
 ## Set up the repository
 ### Install required packages
 yum -y update
