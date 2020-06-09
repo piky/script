@@ -19,7 +19,7 @@ yum install -y docker-ce docker-ce-cli containerd.io
 ## Create /etc/docker
 mkdir /etc/docker
 
-# Set up the Docker daemon to use 'systemd' instead of 'cgroupfs'
+## Set up the Docker daemon to use 'systemd' instead of 'cgroupfs'
 cat > /etc/docker/daemon.json << EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
