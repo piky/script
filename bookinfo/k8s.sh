@@ -66,3 +66,16 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 echo "Waits for 3 minutes"
 sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces
+
+## Deploy Kubernetes Dashboard UI and Metrics Server
+### Reference 1 : https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+### Reference 2 : https://github.com/kubernetes/dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+echo "Waits for 30 seconds"
+sleep 30s # Waits a minute.
+
+## Install Metrics Server
+### Reference : https://github.com/kubernetes-sigs/metrics-server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+kubectl top node
+kubectl top pod
