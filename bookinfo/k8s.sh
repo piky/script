@@ -69,7 +69,9 @@ kubectl get pods --all-namespaces
 
 ## Install Metrics Server
 ### Reference : https://github.com/kubernetes-sigs/metrics-server
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+kubectl apply -f k8s-metrics-server/metrics-server-deployment.yaml
+kubectl apply -f k8s-service-account/kubernetes-dashboard.yaml
+kubectl apply -f k8s-service-account/admin-user.yaml
 
 ## Deploy Kubernetes Dashboard UI
 ### Reference 1 : https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
