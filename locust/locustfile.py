@@ -12,7 +12,7 @@ class LoggedInUser(HttpUser):
         self.client.post("/login", {
 	    "username": "$USER",    # Check with form properties
 	    "passwd": "$PASSWD",    # Check with form properties
-	    "submit": "Sign in",    # Check with form properties
+	    "submit": "Sign in"    # Check with form properties
 	})
 
     def on_start(self):
