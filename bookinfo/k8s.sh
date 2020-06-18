@@ -47,8 +47,8 @@ sysctl --system
 ## Testing connectivity by pulling required images beforehand.
 kubeadm config images pull
 
-HOST_IPv4=$(ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4 --control-plane-endpoint=$(hostname --fqdn)
+HOST_IPv4=$(ip -4 addr show enp3s4f0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$HOST_IPv4 # --control-plane-endpoint=$(hostname --fqdn)
 
 mkdir -p $HOME/.kube/
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -59,8 +59,26 @@ echo "Waits for a minute"
 kubectl cluster-info
 kubectl get nodes -o wide
 
+iptables -P FORWARD ACCEPT
+
 ## Install Calico CNI
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 echo "Waits for 3 minutes"
 sleep 3m # Waits 3 minutes.
 kubectl get pods --all-namespaces
+
+## Install Metrics Server
+### Reference : https://github.com/kubernetes-sigs/metrics-server
+kubectl apply -f k8s-metrics-server/metrics-server-deployment.yaml
+kubectl apply -f k8s-service-account/kubernetes-dashboard.yaml
+kubectl apply -f k8s-service-account/admin-user.yaml
+
+## Deploy Kubernetes Dashboard UI
+### Reference 1 : https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+### Reference 2 : https://github.com/kubernetes/dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+echo "Waits for 30 seconds"
+sleep 30s # Waits a minute.
+
+kubectl top node
+kubectl top pod

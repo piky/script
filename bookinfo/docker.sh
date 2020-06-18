@@ -19,7 +19,7 @@ yum install -y docker-ce docker-ce-cli containerd.io
 ## Create /etc/docker
 mkdir /etc/docker
 
-# Set up the Docker daemon to use 'systemd' instead of 'cgroupfs'
+## Set up the Docker daemon to use 'systemd' instead of 'cgroupfs'
 cat > /etc/docker/daemon.json << EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -37,11 +37,12 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 systemctl enable --now docker
-echo "kubelet is now $(systemctl is-enabled docker)."
-echo "kubelet is now $(systemctl is-active docker)."
+echo "docker is now $(systemctl is-enabled docker)."
+echo "docker is now $(systemctl is-active docker)."
 
-## Disabling system firewalld to allow DNS resolution inside Docker containers,
-#systemctl disable firewalld
+## Disabling system firewalld to allow DNS resolution inside Docker containers.
+systemctl stop firewalld
+echo "firewalld is now $(systemctl is-active firewalld)."
 
 ## It's wisely and security to add an user to Docker group.
 # usermod -aG docker <username>
