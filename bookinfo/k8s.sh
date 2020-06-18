@@ -71,12 +71,12 @@ kubectl get pods --all-namespaces
 ### Reference : https://github.com/kubernetes-sigs/metrics-server
 kubectl apply -f k8s-metrics-server/metrics-server-deployment.yaml
 kubectl apply -f k8s-service-account/kubernetes-dashboard.yaml
-kubectl apply -f k8s-service-account/admin-user.yaml
 
 ## Deploy Kubernetes Dashboard UI
 ### Reference 1 : https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 ### Reference 2 : https://github.com/kubernetes/dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+kubectl apply -f k8s-service-account/admin-user.yaml
 echo "Waits for 30 seconds"
 sleep 30s # Waits a minute.
 
