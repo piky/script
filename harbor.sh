@@ -60,6 +60,7 @@ HARBORVERSION=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://git
 curl -s https://api.github.com/repos/goharbor/harbor/releases/latest | grep browser_download_url | grep online | cut -d '"' -f 4 | wget -qi -
 tar xvf harbor-online-installer-$HARBORVERSION.tgz
 cd harbor
+cp harbor.yml.tmpl harbor.yml
 sed -i "s/reg.mydomain.com/$IPorFQDN/g" harbor.yml
 ./install.sh --with-clair --with-chartmuseum
 echo -e "Harbor Installation Complete \n\nPlease log out and log in or run the command 'newgrp docker' to use Docker without sudo\n\nLogin to your harbor instance:\n docker login -u admin -p Harbor12345 $IPorFQDN"
